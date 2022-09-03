@@ -1,0 +1,39 @@
+.main-div{
+    border-radius: 10%;
+    width: 320px;
+    display: flex;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.438) 10px 10px 10px 10px;
+    background-color: white;
+}
+.imagem{
+    width:160px
+}
+.div-info{
+    text-align: center;
+}
+.currentStatus{
+    font-size: large;
+    text-transform:capitalize;
+}
+.currentTemp{
+    font-size: xx-large;
+    color: rgb(255, 166, 0);
+}
+.currentTempMax{
+    color: rgb(255, 65, 65);
+}
+.currentTempMin{
+    color: rgb(4, 178, 231);
+}
+.div-temps{
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 120px;
+    grid-template-rows: 50px 50px 50px;
+}
+.div-min-max{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

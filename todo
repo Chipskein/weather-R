@@ -1,0 +1,28 @@
+weather-R
+Criar uma tela em REACT com CSS adequado com os seguintes dados:
+
+O usuário selecionará uma cidade para ver as informações sobre previsão do tempo.
+
+Assim, recomendo usar duas APIs.
+
+A primeira é
+
+https://openweathermap.org/api/geocoding-api
+
+para pegar longitude e latitude. Com essas informações, é possível utilizar a segunda API:
+
+https://openweathermap.org/forecast5
+
+para apresentar várias informações sobre previsão do tempo:
+
+(Temperatura atual, sensação térmica, temperatura mínima, máxima, umidade, informações sobre tempo está limpo, chuvoso, etc)
+
+Para 3 dias.
+
+Utilizar também imagens pesquisadas no Google sobre as condições do tempo.
+
+Entrega do trabalho: 09/09/2022.
+
+1 ponto extra: encontrar uma API para buscar uma cidade em um estado ou pais. Atualizar nas checklists... ;)
+
+Individual!!
