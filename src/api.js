@@ -4,7 +4,7 @@ const API_KEY = process.env.REACT_APP_WHEATER_API_KEY;
 
 export async function GetCoordinatesFromCity(cityname="Rio Grande", statecode, countrycode="BR", limit=5) {
     try {
-        const response = await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${cityname}${statecode ? ","+statecode : "" }${countrycode ? ","+countrycode : "" }${limit ? "&limit="+limit : "" }&appid=${API_KEY}`);
+        const response = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${cityname}${statecode ? ","+statecode : "" }${countrycode ? ","+countrycode : "" }${limit ? "&limit="+limit : "" }&appid=${API_KEY}`);
         return response.data;
     } catch (error) {
         return null;

@@ -28,3 +28,8 @@
 .logo{
     width: 60px;
 }
+.div-input{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+}
