@@ -13,6 +13,7 @@ const backgroundImages=[]
         backgroundImages["shower rain"]="https://www.yahire.com/blogs/wp-content/uploads/2016/06/rain-shelter.jpg";
         backgroundImages["light rain"]="https://wallpapercave.com/wp/wp2519239.jpg";
         backgroundImages["rain"]="https://wallpapercave.com/wp/wp2519239.jpg";
+        backgroundImages["moderate rain"]="https://wallpapercave.com/wp/wp2519239.jpg";
         backgroundImages["thunderstorm"]="https://wallpapercave.com/wp/wp9722346.jpg";
         backgroundImages["snow"]="https://images.hdqwalls.com/download/forest-winter-snow-3840x2400.jpg";
         backgroundImages["mist"]="https://res.allmacwallpaper.com/get/Retina-MacBook-Air-13-inch-wallpapers/Day-10--unsplashdaily-2560x1600/17491-11.jpg";
