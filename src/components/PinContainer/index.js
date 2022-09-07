@@ -11,6 +11,7 @@ const backgroundImages=[]
         backgroundImages["broken clouds"]="https://wallpapercave.com/wp/wp6932215.jpg";
         backgroundImages["overcast clouds"]="https://wallpapercave.com/wp/wp6932215.jpg";
         backgroundImages["shower rain"]="https://www.yahire.com/blogs/wp-content/uploads/2016/06/rain-shelter.jpg";
+        backgroundImages["light rain"]="https://wallpapercave.com/wp/wp2519239.jpg";
         backgroundImages["rain"]="https://wallpapercave.com/wp/wp2519239.jpg";
         backgroundImages["thunderstorm"]="https://wallpapercave.com/wp/wp9722346.jpg";
         backgroundImages["snow"]="https://images.hdqwalls.com/download/forest-winter-snow-3840x2400.jpg";
@@ -26,13 +27,9 @@ function changeBackground(key){
 }
 
 
-export default function Home() {
+export default function PinContainer({ City }) {
     const [SelectedCity,setSelectedCity] = useState(null);
     const [SelectedCityForecastWeek,setSelectedCityForecastWeek] = useState([]);
-    
-    const [SearchCity, setSearchCity] = useState(null);
-    const [SearchCountryISO, setSearchCountryISO] = useState(null);
-
 
     const [WeatherIcon, setWeathericon] = useState(logo)
     const [WeatherDescription, setWeatherDescription] = useState('Weather-R')
@@ -41,13 +38,10 @@ export default function Home() {
     const [WeatherTempMax, setWeatherTempMax] = useState(0)
     const [WeatherHumidity, setWeatherHumidity] = useState(0)
     const [WeatherSensation, setWeatherSensation] = useState(0)
-    
     async function getCoordinates(cityname,statecode,countryiso){
         const CoordFromCity=await GetCoordinatesFromCity(cityname,statecode,countryiso)
         if(CoordFromCity==null||CoordFromCity[0]==null) {
             setWeatherDescription("NOT FOUND");
-            setSearchCountryISO("");
-            setSearchCity("");
             setWeathericon(logo);
             setWeatherTemp(0);
             setWeatherTempMin(0);
@@ -111,6 +105,15 @@ export default function Home() {
         }
         setSelectedCityForecastWeek(forecasts)
     }
+    
+    useEffect(() => {
+        if(City==null) return;
+        const {name,CountryIso,StateIso} = City;
+        if(!name||!CountryIso||!StateIso) return
+        (async ()=>await getCoordinates(name,StateIso,CountryIso))()
+        
+    }, [City])
+    
     useEffect(()=>{
         if(SelectedCity==null) return;
         (async ()=>{
@@ -120,32 +123,10 @@ export default function Home() {
 
     },[SelectedCity])
     useEffect(()=>{changeBackground(WeatherDescription)},[WeatherDescription])
+
     return (
         <div className="App">
             <div className='main-div-container'>
-                <div className='div-logo'>
-                    <img src={logo} alt="logo" className='logo'/>
-                </div>
-                <div className="div-input">
-                        <input 
-                            type="text" 
-                            name="city" 
-                            placeholder="City name Ex:Rio Grande"
-                            onChange={(event)=>setSearchCity(event.target.value)}
-                        />
-                        <input 
-                            type="text" 
-                            name="country" 
-                            placeholder="CountryIso Ex:BR" 
-                            size={12}
-                            onChange={(event)=>setSearchCountryISO(event.target.value)}
-                        />    
-                        <input 
-                            type="button"
-                            value="Get Forecast"
-                            onClick={()=>(async ()=>await getCoordinates(SearchCity,null,SearchCountryISO))()}
-                        />
-                </div>
                 <div className='div-weather-now'>
 
                         <Pin 

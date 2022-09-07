@@ -1,8 +1,9 @@
 import React from 'react';
-import PinContainer from './components/PinContainer'
+import LocationSelector from './components/LocationSelector';
 function App() {
+
   return (
-    <PinContainer/>
+    <LocationSelector/>
   );
 }
 

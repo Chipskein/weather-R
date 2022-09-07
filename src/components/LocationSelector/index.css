@@ -1,0 +1,9 @@
+.div-inputs{
+    display: flex;
+    justify-content: center;
+}
+.inputs>*{
+    width: 200px;
+    border-radius: 20px;
+    border: 2px rgb(255, 166, 0)solid;
+}
