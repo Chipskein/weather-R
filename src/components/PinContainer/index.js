@@ -1,6 +1,7 @@
 import React from "react";
 import './index.css';
 import {GetCoordinatesFromCity,GetForecastByCoords,GetWeekForecastByCoords} from '../../api'
+import {VictoryBar,VictoryChart} from 'victory'
 import { useEffect,useState } from 'react';
 import Pin from '../Pin'
 import logo from '../../assets/icon.png'
@@ -28,6 +29,10 @@ function changeBackground(key){
 }
 
 
+const arrayTemp = [];
+const arrayTempMax = [];
+const arrayTempMin = [];
+const arrayHumidity = [];
 export default function PinContainer({ City }) {
     const [SelectedCity,setSelectedCity] = useState(null);
     const [SelectedCityForecastWeek,setSelectedCityForecastWeek] = useState([]);
@@ -39,6 +44,7 @@ export default function PinContainer({ City }) {
     const [WeatherTempMax, setWeatherTempMax] = useState(0)
     const [WeatherHumidity, setWeatherHumidity] = useState(0)
     const [WeatherSensation, setWeatherSensation] = useState(0)
+
     async function getCoordinates(cityname,statecode,countryiso){
         const CoordFromCity=await GetCoordinatesFromCity(cityname,statecode,countryiso)
         if(CoordFromCity==null||CoordFromCity[0]==null) {
@@ -88,7 +94,18 @@ export default function PinContainer({ City }) {
             const forecastDate=new Date(forecast.dt*1000)
             const dayAlreadyLoaded=loadedForecast.find(date=>date===`${forecastDate.getDate()}/${forecastDate.getMonth()+1}/${forecastDate.getFullYear()}`)
             if (dayAlreadyLoaded!=null||dayCount>3) continue;
-            const { temp,temp_min,temp_max,humidity,feels_like }=forecast.main
+            const { dt,main } = forecast;
+            const { temp,temp_min,temp_max,humidity,feels_like } = main;
+            
+            
+            arrayTemp.push({ y: temp, x: new Date(dt*1000).toISOString().substr(0,10) });
+            arrayTempMax.push({ y: temp_max, x: new Date(dt*1000).toISOString().substr(0,10) });
+            arrayTempMin.push({ y: temp_min, x: new Date(dt*1000).toISOString().substr(0,10) });
+            arrayHumidity.push({ y: humidity, x: new Date(dt*1000).toISOString().substr(0,10) });
+
+
+
+
             const { description,icon}=forecast.weather[0]
             forecasts.push(
                 {
@@ -128,8 +145,8 @@ export default function PinContainer({ City }) {
     return (
         <div className="App">
             <div className='main-div-container'>
+                <p align="center">Predictions</p>
                 <div className='div-weather-now'>
-
                         <Pin 
                             WeatherIcon={WeatherIcon}
                             WeatherDescription={WeatherDescription}
@@ -157,6 +174,37 @@ export default function PinContainer({ City }) {
                             )
                         })
                     }
+                </div>
+
+                <div className="div-graph">
+                    <VictoryChart>
+                        <VictoryBar 
+                            barWidth={({ index }) => index * 2 + 8}
+                            style={{data: { fill: "#c43a31" }}} 
+                            data={arrayHumidity}
+                        />
+                    </VictoryChart>
+                    <VictoryChart>
+                        <VictoryBar 
+                            barWidth={({ index }) => index * 2 + 8}
+                            style={{data: { fill: "#c43a31" }}} 
+                            data={arrayTemp}
+                        />
+                    </VictoryChart>
+                    <VictoryChart>
+                        <VictoryBar 
+                            barWidth={({ index }) => index * 2 + 8}
+                            style={{data: { fill: "#c43a31" }}} 
+                            data={arrayTempMax}
+                        />
+                    </VictoryChart>
+                    <VictoryChart>
+                        <VictoryBar 
+                            barWidth={({ index }) => index * 2 + 8}
+                            style={{data: { fill: "#c43a31" }}} 
+                            data={arrayTempMin}
+                        />
+                    </VictoryChart>
                 </div>
             </div>
         </div>
